@@ -1,0 +1,9 @@
+[submodule "ric-app-ad"]
+	path = ric-app-ad
+	url = https://github.com/ShixiongQi/ric-app-ad.git
+[submodule "ric-app-ts"]
+	path = ric-app-ts
+	url = https://github.com/ShixiongQi/ric-app-ts.git
+[submodule "ric-app-qp"]
+	path = ric-app-qp
+	url = https://github.com/ShixiongQi/ric-app-qp.git
