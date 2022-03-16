@@ -59,7 +59,7 @@ cd && git clone "https://gerrit.o-ran-sc.org/r/ric-plt/appmgr"
 cd appmgr/xapp_orchestrater/dev/xapp_onboarder
 
 # If pip3 is not installed, install using the following command
-yum install python3-pip
+apt install -y python3-pip
 
 # In case dms_cli binary is already installed, it can be uninstalled using following command
 pip3 uninstall xapp_onboarder
@@ -116,4 +116,23 @@ docker build -t shixiongqi/ric-app-qp:0.0.4 .
 docker push     shixiongqi/ric-app-qp:0.0.4
 
 kubectl -n ricxapp rollout restart deployment ricxapp-qp
+```
+-----------
+## Tips for InfluxDB
+```
+InfluxDB can be accessed via port 8086 on the following DNS name from within your cluster:
+
+  http://ricplt-influxdb.ricplt:8086
+
+You can connect to the remote instance with the influx CLI. To forward the API port to localhost:8086, run the following:
+
+  kubectl port-forward --namespace ricplt $(kubectl get pods --namespace ricplt -l app=ricplt-influxdb -o jsonpath='{ .items[0].metadata.name }') 8086:8086
+
+You can also connect to the influx CLI from inside the container. To open a shell session in the InfluxDB pod, run the following:
+
+  kubectl exec -i -t --namespace ricplt $(kubectl get pods --namespace ricplt -l app=ricplt-influxdb -o jsonpath='{.items[0].metadata.name}') /bin/sh
+
+To view the logs for the InfluxDB pod, run the following:
+
+  kubectl logs -f --namespace ricplt $(kubectl get pods --namespace ricplt -l app=ricplt-influxdb -o jsonpath='{ .items[0].metadata.name }')
 ```
